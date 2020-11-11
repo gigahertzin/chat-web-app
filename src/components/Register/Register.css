@@ -1,41 +1,20 @@
-.login-sec {
-  min-height: 100vh;
-  background: url("../../images/img2.png") no-repeat,
-    url("../../images/img3.png") no-repeat;
-  background-position: 3% 99%, top right;
+
+.login-sec{
+  overflow: hidden;
+  height:100vh;
+  background:url("../../images/img2.png")no-repeat,url("../../images/img3.png")no-repeat;
+  background-position:3% 99%, top right;
 }
-.form-inline input:focus,
-.form-inline input:active,
-.password-input:active,
-.password-input:focus,
-button:focus,
-button:active {
-  outline: none !important;
-}
-.content-div .login-form {
-  border-radius: 36px;
-  background: #f9fafa;
-  box-shadow: 17px 17px 34px #f0f0f0, -17px -17px 34px #f0f0f0;
-}
-.content-div .login-form h3 {
-  font-family: "Playfair Display", serif;
-}
-.content-div .login-form p {
-  font-size: 14px;
-  color: #909eb5;
-}
-.form-inline label {
-  color: #909eb5;
-  font-size: 18px;
-}
-.sign-up,
-.login {
-  color: #0093e9;
-  text-decoration: underline;
-  cursor: pointer;
-}
-@media (max-width: 768px) {
-  .image-div {
+@media (max-width: 426px) {
+  .image-div{
     display: none !important;
   }
 }
+@media (max-width: 768px) {
+    .image-div{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+>>>>>>> 5b17e7f... added
