@@ -5,6 +5,7 @@ import { withStyles } from "@material-ui/core";
 import UploadButton from "../../../ReusableComponents/UploadButtons";
 import Input from "../../../ReusableComponents/Input";
 import "./SignUp.css";
+import { NavLink } from "react-router-dom";
 
 const styles = (theme) => ({
   button: {
@@ -64,10 +65,10 @@ const SignUp = (props) => {
             />
           </div>
         </div>
-        
+
         <div className="d-flex form-div mb-4">
           <div className="col-md-6 p-0 form-inline">
-          <label className="mb-2 m-0">Create password</label>
+            <label className="mb-2 m-0">Create password</label>
             <Input
               class={classes.input}
               type="password"
@@ -76,7 +77,7 @@ const SignUp = (props) => {
             />
           </div>
           <div className="col-md-6 p-0 form-inline">
-          <label className="mb-2 m-0">Confirm password</label>
+            <label className="mb-2 m-0">Confirm password</label>
             <Input
               class={classes.input}
               type="password"
@@ -85,12 +86,12 @@ const SignUp = (props) => {
             />
           </div>
         </div>
-      
+
         <Button className={classes.button}>Register</Button>
         <p>
           Already have an account?
           <span>
-            <a href="#">Sign in</a>
+            <NavLink to="/login">Login</NavLink>
           </span>
         </p>
       </div>
