@@ -1,0 +1,18 @@
+.login-sec{
+  overflow: hidden;
+  height:100vh;
+  background:url("../../images/img2.png")no-repeat,url("../../images/img3.png")no-repeat;
+  background-position:3% 99%, top right;
+}
+@media (max-width: 426px) {
+  .image-div{
+    display: none !important;
+  }
+}
+@media (max-width: 768px) {
+    .image-div{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
