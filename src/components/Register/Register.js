@@ -9,8 +9,8 @@ const Register = () => {
     <div className="container-fluid login-sec mt-5">
       <div className="d-flex content-div px-3 align-items-center justify-content-center m-0">
         <Switch>
-          <Route path="/login" render={() => <Login />} />
-          <Route path="/sign-up" render={() => <SignUp />} />
+          <Route path="/login" component={Login} />
+          <Route path="/sign-up" component={SignUp} />
         </Switch>
         <div className="col-md-6 image-div">
           <img

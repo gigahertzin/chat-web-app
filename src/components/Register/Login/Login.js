@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import Button from "@material-ui/core/Button";
-
 import { withStyles } from "@material-ui/core";
-// import UploadButton from "../../../ReusableComponents/UploadButtons"
-import Input from "../../../ReusableComponents/Input";
+import TextField from "@material-ui/core/TextField";
 
 const styles = (theme) => ({
   button: {
@@ -31,9 +29,34 @@ const styles = (theme) => ({
 
 const Login = (props) => {
   const { classes } = props;
-  const onLoadInput = (e) => {
-    console.log(e.target);
-  };
+  let [email, setEmail] = useState('')
+  let [password, setPassword] = useState('')
+
+  const registerUser = () => {
+    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if(!emailRegex.test(email)) {
+      alert("Invalid email")
+      return;
+    } else if(!(password.length > 3 && password.length < 10)) {
+      alert("Invalid password")
+      return;
+    } 
+
+    fetch(`http://localhost:2000/login`, {
+      method: "POST",
+      body: JSON.stringify({
+        email : email.trim(),
+        password : password.trim()
+      }),
+      headers: {
+        "Content-type": "application/json",
+      }
+    }).then(res => {
+      if(res.status === 200 && res.message === "success") alert("Logged in successfully")
+      else alert("User not found")
+    })
+
+  }
   return (
     <div className="col-md-6 login-form m-sm-3">
       <div className="form-list mt-3">
@@ -44,24 +67,28 @@ const Login = (props) => {
         <div className="form-valied">
           <div className="col-md-4 p-0 form-inline">
             <label className="mb-2">Email Id</label>
-            <Input
-              type="email"
-              name="Email"
-              changeHandler={onLoadInput}
-              class={classes.input}
-            />
+            <TextField
+                // id="outlined-search"
+                type="email"
+                name="email"
+                onChange={(e) => setEmail(e.target.value)}
+                size="small"
+                className={classes.input}
+              />
           </div>
           <div className="col-md-4 p-0 form-inline">
             <label className="mb-2">Password</label>
-            <Input
-              type="password"
-              name="Password"
-              changeHandler={onLoadInput}
-              class={classes.input}
-            />
+            <TextField
+                // id="outlined-search"
+                type="password"
+                name="password"
+                onChange={(e) => setPassword(e.target.value)}
+                size="small"
+                className={classes.input}
+              />
           </div>
 
-          <Button className={classes.button}>Login</Button>
+          <Button className={classes.button} onClick={registerUser} >Login</Button>
           <p className="px-2">
             Don't have account?{" "}
             <span>
