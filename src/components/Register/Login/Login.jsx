@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
@@ -28,11 +28,12 @@ const styles = (theme) => ({
 });
 
 const Login = (props) => {
-  const { classes } = props;
+  const { classes } = props
+  const history = useHistory()
   let [email, setEmail] = useState('')
   let [password, setPassword] = useState('')
 
-  const registerUser = () => {
+  const registerUser = async () => {
     let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if(!emailRegex.test(email)) {
       alert("Invalid email")
@@ -41,34 +42,39 @@ const Login = (props) => {
       alert("Invalid password")
       return;
     } 
-
-    fetch(`http://localhost:2000/login`, {
-      method: "POST",
-      body: JSON.stringify({
-        email : email.trim(),
-        password : password.trim()
-      }),
-      headers: {
-        "Content-type": "application/json",
+    const url = "http://localhost:2000/login"
+    const res = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify({
+          email : email.trim(),
+          password : password.trim()
+        }),
+        headers: {
+          "Content-type": "application/json",
+        }
       }
-    }).then(res => {
-      if(res.status === 200 && res.message === "success") alert("Logged in successfully")
-      else alert("User not found")
-    })
+    )
+    if(res.status === 200) {
+      localStorage.setItem("email", email)
+      history.push("/")
+    }
+    else if(res.status === 404) history.push("/login")
+    else if(res.status === 401) alert("Incorrect password")
+    else alert("Error in creating user")
 
   }
   return (
-    <div className="col-md-6 login-form m-sm-3">
+    <div className="col-md-6 login-form">
       <div className="form-list mt-3">
         <h1 className="text-center">Login</h1>
         <p className="text-center p-2 pb-0">
           And enjoy life during the time you just saved!
         </p>
-        <div className="form-valied">
-          <div className="col-md-4 p-0 form-inline">
-            <label className="mb-2">Email Id</label>
+        <div className="form-valied d-flex flex-column align-items-center justify-content-center">
+          <div className="form-inline d-flex flex-column">
+            <label className="m-2 mr-auto">Email Id</label>
             <TextField
-                // id="outlined-search"
+                inputProps={{style: {fontSize: 23}}}
                 type="email"
                 name="email"
                 onChange={(e) => setEmail(e.target.value)}
@@ -76,10 +82,10 @@ const Login = (props) => {
                 className={classes.input}
               />
           </div>
-          <div className="col-md-4 p-0 form-inline">
-            <label className="mb-2">Password</label>
+          <div className="form-inline d-flex flex-column align-items-left">
+            <label className="m-2 mr-auto">Password</label>
             <TextField
-                // id="outlined-search"
+                inputProps={{style: {fontSize: 23}}}
                 type="password"
                 name="password"
                 onChange={(e) => setPassword(e.target.value)}
