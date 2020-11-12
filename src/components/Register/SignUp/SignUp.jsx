@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core";
 import UploadButton from "../../ReusableComponents/UploadButtons";
 import TextField from "@material-ui/core/TextField";
-import { NavLink } from "react-router-dom";
+// import { NavLink } from "react-router-dom";
 
 
 const styles = (theme) => ({
@@ -30,7 +30,7 @@ const styles = (theme) => ({
   },
 });
 
-const SignUp = (props) => {
+const SignUp = props => {
 
   const { classes } = props;
   const history = useHistory()
@@ -70,7 +70,7 @@ const SignUp = (props) => {
       }
     ) 
     if(res.status === 200) {
-      history.push("/login")
+      props.changeAuth()
     }
     else if(res.status === 403) alert("user already exists")
     else alert("Error in creating user")
@@ -138,10 +138,8 @@ const SignUp = (props) => {
 
         <Button className={classes.button} onClick={registerUser}>Register</Button>
         <p>
-          Already have an account?
-          <span>
-            <NavLink to="/login">Login</NavLink>
-          </span>
+          Already have an account?{" "}
+          <span className="login" onClick={props.changeAuth}>Login </span>
         </p>
       </div>
     </div>

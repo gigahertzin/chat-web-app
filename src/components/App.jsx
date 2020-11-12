@@ -3,31 +3,31 @@ import "./App.css";
 import { Redirect, Route, withRouter, Switch } from "react-router-dom";
 import Register from "./Register/Register";
 import Main from "./Main/Main";
+import NotFoundPage from "./NotFoundPage/NotFoundPage";
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      isAuth : false
-    }
-  }
   render() {
+    let email = localStorage.getItem("email")
     return (
-      <Switch>    
-          <Route path="/login">
-          {localStorage.getItem("email") === null ? (
-            <Register auth={this.state.isAuth}/>
+      <Switch>
+        
+          <Route exact path="/">
+            { email !== null ? (
+              <Main />
+            ) : (
+              <Redirect exact to="/getting-started" />
+            )}
+          </Route>
+
+          <Route path="/getting-started">
+          {email === null ? (
+            <Register/>
           ) : (
-            <Redirect to="/" />
+            <Redirect exact to="/" />
           )}
         </Route>
-        <Route path="/">
-          {localStorage.getItem("email") !== null ? (
-            <Main />
-          ) : (
-            <Redirect to="/login" />
-          )}
-        </Route>
+
+        <Route component={NotFoundPage} />
       </Switch>
     )
   }

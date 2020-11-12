@@ -58,7 +58,7 @@ const Login = (props) => {
       localStorage.setItem("email", email)
       history.push("/")
     }
-    else if(res.status === 404) history.push("/login")
+    else if(res.status === 404) alert("user not found")
     else if(res.status === 401) alert("Incorrect password")
     else alert("Error in creating user")
 
@@ -97,9 +97,7 @@ const Login = (props) => {
           <Button className={classes.button} onClick={registerUser} >Login</Button>
           <p className="px-2">
             Don't have account?{" "}
-            <span>
-              <NavLink to="/sign-up">Sign Up</NavLink>
-            </span>
+            <span className="sign-up" onClick={props.changeAuth}>Sign Up</span>
           </p>
         </div>
       </div>

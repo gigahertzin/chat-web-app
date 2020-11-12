@@ -1,12 +1,14 @@
-import React from "react";
-// import { Route, Switch } from "react-router-dom";
+import React, { useState } from "react";
 import group from "../../images/group.svg";
 import SignUp from "./SignUp/SignUp";
 import Login from "./Login/Login";
 import "./Register.css";
-const Register = (props) => {
+const Register = () => {
+  let [auth, setAuth] = useState(false)
 
-  let form = (props.auth === false) ?  <Login /> : <SignUp />
+  const changeAuth = () => setAuth(!auth)
+  
+  let form = (!auth) ?  <Login changeAuth={changeAuth} /> : <SignUp changeAuth={changeAuth} />
 
   return (
     <div className="container-fluid login-sec my-3 px-5 px-sm-0 px-md-4 px-lg-5 d-flex align-items-center justify-content-center">
