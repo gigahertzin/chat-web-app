@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Chat.css";
 import { withStyles } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
@@ -9,6 +9,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import Button from "@material-ui/core/Button";
 import SettingsIcon from '@material-ui/icons/Settings';
+import { NavLink } from "react-router-dom";
 const styles = (theme) => ({
   button: {
     backgroundColor: "#0093E9",
@@ -36,7 +37,14 @@ const styles = (theme) => ({
   },
 });
 const Chat = (props) => {
-  const { classes } = props;
+  const { classes } = props
+  const [user, setUser] = useState('')
+  const getMessages = (user) => {
+    props.fetchMessages(user)
+  }
+  useEffect(() => {
+    getMessages(user)
+  },[user])
   return (
     <div className="col-md-3 p-0 chat-content-box px-2">
       <div className="profile-card d-flex flex-column align-items-center justify-content-center p-2 w-100 h-auto">
@@ -47,10 +55,10 @@ const Chat = (props) => {
           width="90px"
           alt="profile-tag"
         />
-        <h4 className="mt-2">
-          Bill Bradford <SettingsIcon />
+        <h4 className="mt-2 text-capitalize">
+          {props.currentUser.name} <SettingsIcon />
         </h4>
-        <h6 className="role m-0">Lead UX/UI Designer</h6>
+        <h6 className="role m-0">{props.currentUser.email}</h6>
         <Button className={classes.button} >LOGOUT</Button>
       </div>
       <hr className="my-2"/>
@@ -96,14 +104,15 @@ const Chat = (props) => {
           />
         </div>
         <div className="contact-people w-100 mt-2 position-relative">
-          <UserChat />
-          <UserChat />
-          <UserChat />
-          <UserChat />
-          <UserChat />
-          <UserChat />
-          <UserChat />
-          <UserChat />
+          {
+            props.users.map((user, index) => {
+              return (
+                <NavLink to={`/${user._id}`} key={index}>
+                  <UserChat user={user}  onClick={() => setUser(user)}/>
+                </NavLink>
+              )
+            })
+          }
         </div>
       </div>
     </div>

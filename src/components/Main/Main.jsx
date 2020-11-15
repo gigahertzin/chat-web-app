@@ -1,32 +1,52 @@
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
-import Chat from './Chat/Chat'
-import Message from './Message/Message'
+import Chat from "./Chat/Chat";
+import Message from "./Message/Message";
 import "./Main.css";
+import { Switch, Route, useRouteMatch } from "react-router-dom";
 let socket;
-const Main = ({ currentUser }) => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+const Main = (props) => {
+  const { email } = props.currentUser;
+  let [messages, setMessages] = useState({})
   const ENDPOINT = "http://localhost:2000";
-
+  let { path } = useRouteMatch()
   useEffect(() => {
-    const { name, email } = currentUser;
 
     socket = io(ENDPOINT);
-
-    setUsername(name);
-    setEmail(email);
-
     socket.emit("join", { email });
     return () => {
       socket.off();
     };
-  }, [currentUser, username]);
+  });
+
+  const fetchMessages = async (user) => {
+    console.log(user)
+    const url = "http://localhost:2000/:chatId";
+    const res = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify({
+        senderEmail : email,
+        receiverEmail : user.email
+      }),
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+    setMessages(await res.json())
+    console.log(messages)
+  }
 
   return (
     <div className="container-fluid main-div d-flex p-0 py-2">
-      <Chat />
-      <Message />
+      <Chat currentUser={props.currentUser} users={props.users} fetchMessages={fetchMessages}/>
+      <Switch>
+        <Route path={`/:chatId`}>
+          <Message messages={messages}/>
+        </Route>
+        <Route exact path={path}>
+          <h3>Please select a chat.</h3>
+        </Route>
+      </Switch>
     </div>
   );
 };
