@@ -3,12 +3,20 @@ import group from "../../images/group.svg";
 import SignUp from "./SignUp/SignUp";
 import Login from "./Login/Login";
 import "./Register.css";
-const Register = () => {
-  let [auth, setAuth] = useState(false)
+const Register = (props) => {
+  let [auth, setAuth] = useState(false);
 
-  const changeAuth = () => setAuth(!auth)
-  
-  let form = (!auth) ?  <Login changeAuth={changeAuth} /> : <SignUp changeAuth={changeAuth} />
+  const changeAuth = () => setAuth(!auth);
+
+  let form = !auth ? (
+    <Login
+      changeAuth={changeAuth}
+      inputHandler={props.inputHandler}
+      loginUser={props.loginUser}
+    />
+  ) : (
+    <SignUp changeAuth={changeAuth} />
+  );
 
   return (
     <div className="container-fluid login-sec my-3 px-5 px-sm-0 px-md-4 px-lg-5 d-flex align-items-center justify-content-center">

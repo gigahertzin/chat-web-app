@@ -69,7 +69,7 @@ const SignUp = props => {
         }
       }
     ) 
-    if(res.status === 200) {
+    if(res.status === 201) {
       props.changeAuth()
     }
     else if(res.status === 403) alert("user already exists")

@@ -1,0 +1,25 @@
+.main-div {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.online-members::-webkit-scrollbar {
+  display: none;
+}
+.messages::-webkit-scrollbar,
+.contact-people::-webkit-scrollbar {
+  width: 4px;
+  border-radius: 13px;
+  border: 2px solid transparent;
+}
+
+.messages::-webkit-scrollbar-track,
+.contact-people::-webkit-scrollbar-track {
+	background-color: transparent;
+}
+
+.messages::-webkit-scrollbar-thumb,
+.contact-people::-webkit-scrollbar-thumb {
+  background-color: thistle;
+  border-radius: 13px;
+}
