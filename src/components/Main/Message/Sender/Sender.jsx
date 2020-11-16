@@ -1,17 +1,17 @@
 import React from "react";
 
-const Sender = () => {
+const Sender = (props) => {
   return (
     <div className="msg right-msg">
       <div className="msg-img"></div>
 
       <div className="msg-box">
         <div className="msg-info">
-          <div className="msg-info-name">Gokul</div>
-          <div className="msg-info-time">1:21</div>
+          <div className="msg-info-name">{props.message.sender} </div>
+          <div className="msg-info-time">{props.message.timeStamp} </div>
         </div>
 
-        <div className="msg-text">Hi, welcome to Simple Chat Application</div>
+        <div className="msg-text">{props.message.message}</div>
       </div>
     </div>
   );

@@ -8,8 +8,13 @@ const Message = (props) => {
     <div className="col-md-9 chat-background position-relative h-100 d-flex flex-column p-0 pl-3">
       <div className="messages w-100">
         <div className="msg-scroll px-2">
-          <Receiver />
-          <Sender />
+          {
+            props.messages.map(message => {
+              if(message.sender) return <Sender message={message} />
+              else return <Receiver message={message} />
+            })
+          }
+          
         </div>
       </div>
 
@@ -20,9 +25,10 @@ const Message = (props) => {
             name="message"
             className="msger-input px-3 py-2"
             placeholder="Enter your message..."
-            onKeyDown={props.saveMessage}
+            onKeyPress={props.helper}
+            onChange={props.saveMessage}
           />
-          <button onClick={props.saveMessage} className="msger-send-btn">
+          <button className="msger-send-btn">
             Send
           </button>
         </form>
