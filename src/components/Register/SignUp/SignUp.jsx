@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom"
 import Button from "@material-ui/core/Button";
 
 import { withStyles } from "@material-ui/core";
 import UploadButton from "../../ReusableComponents/UploadButtons";
 import TextField from "@material-ui/core/TextField";
-// import { NavLink } from "react-router-dom";
 
 
 const styles = (theme) => ({
@@ -33,7 +31,6 @@ const styles = (theme) => ({
 const SignUp = props => {
 
   const { classes } = props;
-  const history = useHistory()
   let [name, setName] = useState('')
   let [email, setEmail] = useState('')
   let [password, setPassword] = useState('')

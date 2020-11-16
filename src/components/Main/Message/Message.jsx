@@ -4,11 +4,6 @@ import Receiver from "./Receiver/Receiver";
 import Sender from "./Sender/Sender";
 
 const Message = (props) => {
-  const saveMessage = (e) => {
-    if(e.key === "Enter") {
-      alert("Saved")
-    }
-  }
   return (
     <div className="col-md-9 chat-background position-relative h-100 d-flex flex-column p-0 pl-3">
       <div className="messages w-100">
@@ -22,11 +17,12 @@ const Message = (props) => {
         <form className="msger-inputarea d-flex px-3 py-2" onSubmit={e => e.preventDefault()}>
           <input
             type="text"
+            name="message"
             className="msger-input px-3 py-2"
             placeholder="Enter your message..."
-            onKeyDown={saveMessage}
+            onKeyDown={props.saveMessage}
           />
-          <button type="submit" className="msger-send-btn">
+          <button onClick={props.saveMessage} className="msger-send-btn">
             Send
           </button>
         </form>

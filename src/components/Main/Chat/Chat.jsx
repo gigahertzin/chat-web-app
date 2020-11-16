@@ -9,7 +9,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import Button from "@material-ui/core/Button";
 import SettingsIcon from '@material-ui/icons/Settings';
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 const styles = (theme) => ({
   button: {
     backgroundColor: "#0093E9",
@@ -107,9 +107,9 @@ const Chat = (props) => {
           {
             props.users.map((user, index) => {
               return (
-                <NavLink to={`/${user._id}`} key={index}>
-                  <UserChat user={user}  onClick={() => setUser(user)}/>
-                </NavLink>
+                <Link to={`/${user._id}`} key={index} onClick={() => setUser(user)}>
+                  <UserChat user={user} />
+                </Link>
               )
             })
           }
