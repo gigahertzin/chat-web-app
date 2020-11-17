@@ -4,30 +4,39 @@ import Chat from "./Chat/Chat";
 import Message from "./Message/Message";
 import "./Main.css";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
-let socket;
+
+const ENDPOINT = "http://localhost:2000";
+const socket = io(ENDPOINT);
+
 const Main = (props) => {
   const { email } = props.currentUser;
-  let [usersOnline, setUsersOnline] = useState([])
   const [receiver, setReceiver] = useState({})
-  let [messages, setMessages] = useState([])
   let [message, setMessage] = useState('')
-  const ENDPOINT = "http://localhost:2000";
+  let [messages, setMessages] = useState([])
+  let [usersOnline, setUsersOnline] = useState([])
   let { path } = useRouteMatch()
-  socket = io(ENDPOINT);
   useEffect(() => {
-    socket.emit("new", { email : email }, (data) => {
+    socket.emit("new", { email }, data => {
       if(data) console.log("joined")
       else console.log("failed")
     })
-  },[email]);
-  socket.on("users", data => {
-    setUsersOnline(data)
-    console.log(usersOnline)
-  })
-  socket.on("sendMsg", (data) => {
-    let { msgDetail } = data
-    setMessages(prevArr => [...prevArr, msgDetail])
-  })
+  }, [email])
+  useEffect(() => {
+    const changeMsg = data => setMessages(prevArr => [...prevArr, data.msgDetail])
+    socket.on("getMsg", changeMsg)
+    return () => {
+      socket.off('getMsg', changeMsg);
+    }
+  }, [messages])
+  
+  useEffect(() => {
+    const checkOnlineStatus = data => setUsersOnline(data)
+    socket.on("users", checkOnlineStatus)
+    return () => {
+      socket.off('users', checkOnlineStatus);
+    }
+  },[usersOnline])
+
   const fetchMessages = async (user) => {
     setReceiver(user)
     const url = "http://localhost:2000/:chatId";
@@ -56,10 +65,10 @@ const Main = (props) => {
         },
       })
       if(res.status === 201) {
-        let newMessage = await res.json()
-        socket.emit("getMsg", {msgDetail : newMessage.newMessage}, (data) => {
-          setMessages(prevArr => [...prevArr, newMessage.newMessage])
-        })
+        let response = await res.json()
+        let newMessage = response.newMessage
+        setMessages(prevArr => [...prevArr, newMessage])
+        socket.emit("sendMsg", {msgDetail : newMessage})
         e.target.value = ""
       }
     }
