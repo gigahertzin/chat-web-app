@@ -7,20 +7,27 @@ import { Switch, Route, useRouteMatch } from "react-router-dom";
 let socket;
 const Main = (props) => {
   const { email } = props.currentUser;
+  let [usersOnline, setUsersOnline] = useState([])
   const [receiver, setReceiver] = useState({})
   let [messages, setMessages] = useState([])
   let [message, setMessage] = useState('')
   const ENDPOINT = "http://localhost:2000";
   let { path } = useRouteMatch()
+  socket = io(ENDPOINT);
   useEffect(() => {
-
-    socket = io(ENDPOINT);
-    socket.emit("join", { email });
-    return () => {
-      socket.off();
-    };
-  });
-
+    socket.emit("new", { email : email }, (data) => {
+      if(data) console.log("joined")
+      else console.log("failed")
+    })
+  },[email]);
+  socket.on("users", data => {
+    setUsersOnline(data)
+    console.log(usersOnline)
+  })
+  socket.on("sendMsg", (data) => {
+    let { msgDetail } = data
+    setMessages(prevArr => [...prevArr, msgDetail])
+  })
   const fetchMessages = async (user) => {
     setReceiver(user)
     const url = "http://localhost:2000/:chatId";
@@ -50,13 +57,15 @@ const Main = (props) => {
       })
       if(res.status === 201) {
         let newMessage = await res.json()
-        setMessages(prevArr => [...prevArr, newMessage.newMessage])
+        socket.emit("getMsg", {msgDetail : newMessage.newMessage}, (data) => {
+          setMessages(prevArr => [...prevArr, newMessage.newMessage])
+        })
         e.target.value = ""
       }
-
     }
     
   }
+
   const saveMessage = (e) => setMessage(e.target.value)
 
   return (

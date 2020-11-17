@@ -1,6 +1,6 @@
 import React from "react";
 import "./Message.css";
-import Receiver from "./Receiver/Receiver";
+// import Receiver from "./Receiver/Receiver";
 import Sender from "./Sender/Sender";
 
 const Message = (props) => {
@@ -9,9 +9,9 @@ const Message = (props) => {
       <div className="messages w-100">
         <div className="msg-scroll px-2">
           {
-            props.messages.map(message => {
-              if(message.sender) return <Sender message={message} />
-              else return <Receiver message={message} />
+            props.messages.map((message, index) => {
+              return <Sender message={message} key={index}/>
+              // <Receiver message={message} />
             })
           }
           
