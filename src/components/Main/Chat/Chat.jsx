@@ -8,8 +8,8 @@ import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import Button from "@material-ui/core/Button";
-import SettingsIcon from '@material-ui/icons/Settings';
-import { Link } from "react-router-dom";
+import SettingsIcon from "@material-ui/icons/Settings";
+import { NavLink } from "react-router-dom";
 const styles = (theme) => ({
   button: {
     backgroundColor: "#0093E9",
@@ -31,20 +31,20 @@ const styles = (theme) => ({
     height: 38,
     width: "100%",
   },
-  resize:{
-    fontSize:23,
-    marginTop:4
+  resize: {
+    fontSize: 23,
+    marginTop: 4,
   },
 });
 const Chat = (props) => {
-  const { classes } = props
-  const [user, setUser] = useState('')
+  const { classes } = props;
+  const [user, setUser] = useState("");
   const getMessages = (user) => {
-    props.fetchMessages(user)
-  }
+    props.fetchMessages(user);
+  };
   useEffect(() => {
-    getMessages(user)
-  },[user])
+    getMessages(user);
+  }, [user]);
   return (
     <div className="col-md-3 p-0 chat-content-box px-2">
       <div className="profile-card d-flex flex-column align-items-center justify-content-center p-2 w-100 h-auto">
@@ -59,26 +59,24 @@ const Chat = (props) => {
           {props.currentUser.name} <SettingsIcon />
         </h4>
         <h6 className="role m-0">{props.currentUser.email}</h6>
-        <Button className={classes.button} >LOGOUT</Button>
+        <Button className={classes.button}>LOGOUT</Button>
       </div>
-      <hr className="my-2"/>
+      <hr className="my-2" />
       <div className="online-status px-2">
         <div className="online-header d-flex align-items-center justify-content-between w-100">
           <h6 className="m-0">Online now</h6>
-          <span className="badge badge-dark m-0 mr-2">4</span>
+          <span className="badge badge-dark m-0 mr-2">{props.usersOnline.length}</span>
         </div>
         <div className="online-members d-flex mt-2">
-          <Status />
-          <Status />
-          <Status />
-          <Status />
-          <Status />
-          <Status />
-          <Status />
-          <Status />
+          {
+            props.usersOnline.map(user => {
+              return <Status email={user.email}/>
+            })
+          }
+          
         </div>
       </div>
-      <hr className="m-0 mt-2 mb-1"/>
+      <hr className="m-0 mt-2 mb-1" />
       <div className="chat-people px-2">
         <div className="online-header">
           <h6 className="text-left m-0 mb-1 ml-2">Chats</h6>
@@ -89,7 +87,7 @@ const Chat = (props) => {
             size="small"
             className={classes.input}
             InputProps={{
-              fontSize:23,
+              fontSize: 23,
               startAdornment: (
                 <InputAdornment>
                   <IconButton>
@@ -104,15 +102,19 @@ const Chat = (props) => {
           />
         </div>
         <div className="contact-people w-100 mt-2 position-relative">
-          {
-            props.users.map((user, index) => {
-              return (
-                <Link to={`/${user._id}`} key={index} onClick={() => setUser(user)}>
-                  <UserChat user={user} />
-                </Link>
-              )
-            })
-          }
+          {props.users.map((user, index) => {
+            return (
+              <NavLink
+                to={`/${user._id}`}
+                activeClassName="active"
+                key={index}
+                style={{ textDecoration: "none" }}
+                onClick={() => setUser(user)}
+              >
+                <UserChat user={user} />
+              </NavLink>
+            );
+          })}
         </div>
       </div>
     </div>

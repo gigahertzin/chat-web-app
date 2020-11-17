@@ -39,3 +39,6 @@
 .chat-detail p{
   font-size: 12px;
 }
+.active .user-chat{
+  background-color: wheat;
+}
