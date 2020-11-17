@@ -39,8 +39,14 @@ const styles = (theme) => ({
 const Chat = (props) => {
   const { classes } = props;
   const [user, setUser] = useState("");
+  const [users, setUsers] = useState(props.users);
   const getMessages = (user) => {
     props.fetchMessages(user);
+  };
+  const filterChat = (e) => {
+    let inputValue = e.target.value;
+    if (inputValue === "") setUsers(props.users);
+    setUsers(users.filter((user) => user.name.contains(inputValue)));
   };
   useEffect(() => {
     getMessages(user);
@@ -65,15 +71,14 @@ const Chat = (props) => {
       <div className="online-status px-2">
         <div className="online-header d-flex align-items-center justify-content-between w-100">
           <h6 className="m-0">Online now</h6>
-          <span className="badge badge-dark m-0 mr-2">{props.usersOnline.length}</span>
+          <span className="badge badge-dark m-0 mr-2">
+            {props.usersOnline.length}
+          </span>
         </div>
         <div className="online-members d-flex mt-2">
-          {
-            props.usersOnline.map(user => {
-              return <Status email={user.email}/>
-            })
-          }
-          
+          {props.usersOnline.map((user) => {
+            return <Status email={user.email} />;
+          })}
         </div>
       </div>
       <hr className="m-0 mt-2 mb-1" />
@@ -85,6 +90,7 @@ const Chat = (props) => {
             name="Search for chat"
             placeholder="Search for Chats"
             size="small"
+            onChange={filterChat}
             className={classes.input}
             InputProps={{
               fontSize: 23,
@@ -102,7 +108,7 @@ const Chat = (props) => {
           />
         </div>
         <div className="contact-people w-100 mt-2 position-relative">
-          {props.users.map((user, index) => {
+          {users.map((user, index) => {
             return (
               <NavLink
                 to={`/${user._id}`}

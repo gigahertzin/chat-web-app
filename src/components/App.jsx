@@ -16,7 +16,7 @@ const App = () => {
   let [password, setPassword] = useState("");
   let [loggedIn, setLoggedIn] = useState(false);
   let [currentUser, setCurrentUser] = useState({});
-  const [users, setUsers] = useState([])
+  const [users, setUsers] = useState([]);
 
   const history = useHistory();
   const inputHandler = (e) => {
@@ -47,11 +47,10 @@ const App = () => {
     if (res.status === 200) {
       setLoggedIn(true);
       let userDetails = await res.json();
-      setUsers(userDetails.users.filter(user => user.email !== email))
-      setCurrentUser(userDetails.users.find(user => user.email === email))
+      setUsers(userDetails.users.filter((user) => user.email !== email));
+      setCurrentUser(userDetails.users.find((user) => user.email === email));
       history.push("/");
-    } 
-    else if (res.status === 404) alert("user not found");
+    } else if (res.status === 404) alert("user not found");
     else if (res.status === 401) alert("Incorrect password");
     else alert("Error in creating user");
   };
@@ -60,7 +59,7 @@ const App = () => {
     <Switch>
       <Route exact path="/">
         {loggedIn ? (
-          <Main currentUser={currentUser} users={users}/>
+          <Main currentUser={currentUser} users={users} />
         ) : (
           <Redirect exact to="/getting-started" />
         )}
@@ -74,8 +73,8 @@ const App = () => {
         )}
       </Route>
       <Route path={`/:chatId`}>
-      {loggedIn ? (
-          <Main currentUser={currentUser} users={users}/>
+        {loggedIn ? (
+          <Main currentUser={currentUser} users={users} />
         ) : (
           <Redirect exact to="/getting-started" />
         )}

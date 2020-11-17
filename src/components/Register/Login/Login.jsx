@@ -27,7 +27,7 @@ const styles = (theme) => ({
 });
 
 const Login = (props) => {
-  const { classes } = props
+  const { classes } = props;
   return (
     <div className="col-md-6 login-form">
       <div className="form-list mt-3">
@@ -39,30 +39,34 @@ const Login = (props) => {
           <div className="form-inline d-flex flex-column">
             <label className="m-2 mr-auto">Email Id</label>
             <TextField
-                inputProps={{style: {fontSize: 23}}}
-                type="email"
-                name="email"
-                onChange={props.inputHandler}
-                size="small"
-                className={classes.input}
-              />
+              inputProps={{ style: { fontSize: 23 } }}
+              type="email"
+              name="email"
+              onChange={props.inputHandler}
+              size="small"
+              className={classes.input}
+            />
           </div>
           <div className="form-inline d-flex flex-column align-items-left">
             <label className="m-2 mr-auto">Password</label>
             <TextField
-                inputProps={{style: {fontSize: 23}}}
-                type="password"
-                name="password"
-                onChange={props.inputHandler}
-                size="small"
-                className={classes.input}
-              />
+              inputProps={{ style: { fontSize: 23 } }}
+              type="password"
+              name="password"
+              onChange={props.inputHandler}
+              size="small"
+              className={classes.input}
+            />
           </div>
 
-          <Button className={classes.button} onClick={props.loginUser} >Login</Button>
+          <Button className={classes.button} onClick={props.loginUser}>
+            Login
+          </Button>
           <p className="px-2">
             Don't have account?{" "}
-            <span className="sign-up" onClick={props.changeAuth}>Sign Up</span>
+            <span className="sign-up" onClick={props.changeAuth}>
+              Sign Up
+            </span>
           </p>
         </div>
       </div>

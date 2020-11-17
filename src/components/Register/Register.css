@@ -28,9 +28,9 @@ button:active {
   color: #909eb5;
   font-size: 18px;
 }
-.sign-up, 
-.login{
-  color: #0093E9;
+.sign-up,
+.login {
+  color: #0093e9;
   text-decoration: underline;
   cursor: pointer;
 }

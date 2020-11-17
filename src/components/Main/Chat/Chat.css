@@ -3,7 +3,8 @@
   border: 1px solid #c5d6fc;
   border-radius: 10px;
 }
-.profile-card .profile-image,.chats-iamge {
+.profile-card .profile-image,
+.chats-iamge {
   border-radius: 50%;
 }
 .profile-card h4,
@@ -16,14 +17,15 @@
 .online-members {
   overflow-x: scroll;
 }
-.contact-people{
-  height : 220px;
+.contact-people {
+  height: 220px;
   overflow-y: scroll;
 }
-.user-chat{
-    border-bottom:1px solid rgb(230, 230, 230);
+.user-chat {
+  border-bottom: 1px solid rgb(230, 230, 230);
 }
-.icon-container img ,.user-chat img{
+.icon-container img,
+.user-chat img {
   height: 50px;
   width: 50px;
   border-radius: 50%;
@@ -36,9 +38,9 @@
   border: 2px solid white;
   bottom: 0;
 }
-.chat-detail p{
+.chat-detail p {
   font-size: 12px;
 }
-.active .user-chat{
+.active .user-chat {
   background-color: wheat;
 }
