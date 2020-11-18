@@ -54,12 +54,12 @@ const App = () => {
     else if (res.status === 401) alert("Incorrect password");
     else alert("Error in creating user");
   };
-
+  const logoutUser = () => setLoggedIn(false)
   return (
     <Switch>
       <Route exact path="/">
         {loggedIn ? (
-          <Main currentUser={currentUser} users={users} />
+          <Main currentUser={currentUser} logoutUser={logoutUser} users={users} />
         ) : (
           <Redirect exact to="/getting-started" />
         )}

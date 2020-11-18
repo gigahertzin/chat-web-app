@@ -1,20 +1,28 @@
 import React from "react";
 import "./Message.css";
-import Receiver from "./Receiver/Receiver";
 import Sender from "./Sender/Sender";
-
+import ScrollToBottom from "react-scroll-to-bottom";
 const Message = (props) => {
   return (
     <div className="col-md-9 chat-background position-relative h-100 d-flex flex-column p-0 pl-3">
-      <div className="messages w-100">
-        <div className="msg-scroll px-2">
-          {props.messages.map((message, index) => {
-            if (props.email === message.sender) {
-              return <Sender message={message} key={index} />;
-            } else return <Receiver message={message} key={index} />;
-          })}
-        </div>
-      </div>
+      <ScrollToBottom className="messages w-100">
+          <div className="msg-scroll px-2">
+            {props.messages.map((message, index) => {
+              if (props.email === message.sender) {
+                return (
+                  <Sender message={message} key={index} msgClass={"right-msg"} />
+                );
+              } else
+                return (
+                  <Sender
+                    message={message}
+                    key={index}
+                    msgClass={"left-msg"}
+                  />
+                );
+            })}
+          </div>
+      </ScrollToBottom>
 
       <div className="chat-inputBox w-100 pr-5">
         <form

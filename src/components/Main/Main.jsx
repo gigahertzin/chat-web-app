@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import Chat from "./Chat/Chat";
 import Message from "./Message/Message";
 import "./Main.css";
-import { Switch, Route, useRouteMatch } from "react-router-dom";
+import { Switch, Route, useRouteMatch, useHistory } from "react-router-dom";
 
 const ENDPOINT = "http://localhost:2000";
 const socket = io(ENDPOINT);
@@ -11,6 +11,7 @@ const socket = io(ENDPOINT);
 const Main = (props) => {
   const { email } = props.currentUser;
   const [receiver, setReceiver] = useState({});
+  let history = useHistory()
   let [message, setMessage] = useState("");
   let [messages, setMessages] = useState([]);
   let [usersOnline, setUsersOnline] = useState([]);
@@ -81,9 +82,17 @@ const Main = (props) => {
 
   const saveMessage = (e) => setMessage(e.target.value);
 
+  const logout = () => {
+    socket.emit("logout", {email}, data => {
+      history.push("/getting-started")
+    })
+    return props.logoutUser()
+  }
+
   return (
     <div className="container-fluid main-div d-flex p-0 py-2">
       <Chat
+        logout = {logout}
         currentUser={props.currentUser}
         users={props.users}
         usersOnline={usersOnline}

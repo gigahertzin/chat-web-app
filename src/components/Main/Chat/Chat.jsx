@@ -39,15 +39,18 @@ const styles = (theme) => ({
 const Chat = (props) => {
   const { classes } = props;
   const [user, setUser] = useState("");
-  const [users, setUsers] = useState(props.users);
+  const [users, setUsers] = useState([]);
   const getMessages = (user) => {
     props.fetchMessages(user);
   };
   const filterChat = (e) => {
     let inputValue = e.target.value;
-    if (inputValue === "") setUsers(props.users);
-    setUsers(users.filter((user) => user.name.contains(inputValue)));
+    if (inputValue === "") return setUsers(props.users);
+    setUsers(users.filter((user) => user.name.includes(inputValue)))
   };
+  useEffect(() => {
+    setUsers(props.users);
+  }, [props.users]);
   useEffect(() => {
     getMessages(user);
   }, [user]);
@@ -65,7 +68,7 @@ const Chat = (props) => {
           {props.currentUser.name} <SettingsIcon />
         </h4>
         <h6 className="role m-0">{props.currentUser.email}</h6>
-        <Button className={classes.button}>LOGOUT</Button>
+        <Button onClick={props.logout} className={classes.button}>LOGOUT</Button>
       </div>
       <hr className="my-2" />
       <div className="online-status px-2">
@@ -76,8 +79,8 @@ const Chat = (props) => {
           </span>
         </div>
         <div className="online-members d-flex mt-2">
-          {props.usersOnline.map((user) => {
-            return <Status email={user.email} />;
+          {props.usersOnline.map((user, index) => {
+            return <Status email={user.email} key={index}/>;
           })}
         </div>
       </div>
