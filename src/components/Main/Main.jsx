@@ -3,15 +3,14 @@ import io from "socket.io-client";
 import Chat from "./Chat/Chat";
 import Message from "./Message/Message";
 import "./Main.css";
-import { Switch, Route, useRouteMatch, useHistory } from "react-router-dom";
+import { Switch, Route, useRouteMatch } from "react-router-dom";
 
 const ENDPOINT = "http://localhost:2000";
 const socket = io(ENDPOINT);
 
 const Main = (props) => {
   const { email } = props.currentUser;
-  const [receiver, setReceiver] = useState({});
-  let history = useHistory()
+  const [receiver, setReceiver] = useState({})
   let [message, setMessage] = useState("");
   let [messages, setMessages] = useState([]);
   let [usersOnline, setUsersOnline] = useState([]);
@@ -24,7 +23,7 @@ const Main = (props) => {
   }, [email]);
   useEffect(() => {
     const changeMsg = (data) =>
-      setMessages((prevArr) => [...prevArr, data.msgDetail]);
+    setMessages((prevArr) => [...prevArr, data.msgDetail]);
     socket.on("getMsg", changeMsg);
     return () => {
       socket.off("getMsg", changeMsg);
@@ -84,15 +83,15 @@ const Main = (props) => {
 
   const logout = () => {
     socket.emit("logout", {email}, data => {
-      history.push("/getting-started")
+      if(data) console.log("logged out!!!")
     })
-    return props.logoutUser()
   }
 
   return (
     <div className="container-fluid main-div d-flex p-0 py-2">
       <Chat
         logout = {logout}
+        logoutUser = {props.logoutUser}
         currentUser={props.currentUser}
         users={props.users}
         usersOnline={usersOnline}
