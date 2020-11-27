@@ -14,6 +14,7 @@ const Main = (props) => {
   let [message, setMessage] = useState("");
   let [messages, setMessages] = useState([]);
   let [usersOnline, setUsersOnline] = useState([]);
+  let [currMsgScreen, setCurrMsgScreen] = useState(""); 
   let { path } = useRouteMatch();
   useEffect(() => {
     socket.emit("new", { email }, (data) => {
@@ -22,13 +23,16 @@ const Main = (props) => {
     });
   }, [email]);
   useEffect(() => {
-    const changeMsg = (data) =>
-    setMessages((prevArr) => [...prevArr, data.msgDetail]);
+    const changeMsg = (data) => {
+      console.log(data.msgDetail.sender , currMsgScreen)
+      if(data.msgDetail.sender === currMsgScreen) 
+        setMessages((prevArr) => [...prevArr, data.msgDetail]);
+    }
     socket.on("getMsg", changeMsg);
     return () => {
       socket.off("getMsg", changeMsg);
     };
-  }, [messages]);
+  }, [messages, currMsgScreen]);
 
   useEffect(() => {
     const checkOnlineStatus = (data) => {
@@ -81,17 +85,25 @@ const Main = (props) => {
 
   const saveMessage = (e) => setMessage(e.target.value);
 
+  const chatClick = user => {
+    setCurrMsgScreen(user.email);
+    console.log(user)
+  }
+
   const logout = () => {
+    props.logoutUser()
     socket.emit("logout", {email}, data => {
       if(data) console.log("logged out!!!")
+      else console.log("Error")
     })
   }
 
   return (
     <div className="container-fluid main-div d-flex p-0 py-2">
       <Chat
+        chatClick = {chatClick}
         logout = {logout}
-        logoutUser = {props.logoutUser}
+        // logoutUser = {props.logoutUser}
         currentUser={props.currentUser}
         users={props.users}
         usersOnline={usersOnline}

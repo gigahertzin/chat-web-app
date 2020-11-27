@@ -37,10 +37,12 @@ const styles = (theme) => ({
   },
 });
 const Chat = (props) => {
+
   const { classes } = props;
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState({});
   const [users, setUsers] = useState([]);
-  const getMessages = (user) => props.fetchMessages(user)
+
+  const getMessages = user => props.fetchMessages(user)
   const filterChat = (e) => {
     let inputValue = e.target.value;
     if (inputValue === "") return setUsers(props.users);
@@ -52,7 +54,6 @@ const Chat = (props) => {
   useEffect(() => {
     getMessages(user);
   }, [user]);
-
   return (
     <div className="col-md-3 p-0 chat-content-box px-2">
       <div className="profile-card d-flex flex-column align-items-center justify-content-center p-2 w-100 h-auto">
@@ -67,7 +68,7 @@ const Chat = (props) => {
           {props.currentUser.name} <SettingsIcon />
         </h4>
         <h6 className="role m-0">{props.currentUser.email}</h6>
-        <Button onClick={() => {props.logoutUser(); props.logout()}} className={classes.button}>LOGOUT</Button>
+        <Button onClick={() => {props.logout()}} className={classes.button}>LOGOUT</Button>
       </div>
       <hr className="my-2" />
       <div className="online-status px-2">
@@ -117,7 +118,7 @@ const Chat = (props) => {
                 activeClassName="active"
                 key={index}
                 style={{ textDecoration: "none" }}
-                onClick={() => setUser(user)}
+                onClick={() => {props.chatClick(user); setUser(user)}}
               >
                 <UserChat user={user} />
               </NavLink>
