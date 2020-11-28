@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 .login-sec{
   overflow: hidden;
@@ -12,9 +13,110 @@
 }
 @media (max-width: 768px) {
     .image-div{
+||||||| parent of 7cf9d35... commit
+.login-sec{
+  overflow: hidden;
+  height:100vh;
+  background:url("../../images/img2.png")no-repeat,url("../../images/img3.png")no-repeat;
+  background-position:3% 99%, top right;
+}
+@media (max-width: 426px) {
+  .image-div{
+    display: none !important;
+  }
+}
+@media (max-width: 768px) {
+    .image-div{
+=======
+  .login-sec{
+    height:100vh;
+    background:url("../../images/img2.png")no-repeat,url("../../images/img3.png")no-repeat;
+    background-position:3% 99%, top right;
+  }
+  .form-inline input:focus,
+  .form-inline input:active,.password-input:active,.password-input:focus {
+    outline: none;
+  }
+  .form-inline .form-input,.password-input {
+    padding-left: 10px;
+  }
+  .content-div {
+    font-family: "Poppins", sans-serif;
+  }
+  .content-div .login-form {
+    border-radius: 36px;
+    background: #f9fafa;
+    box-shadow: 17px 17px 34px #f0f0f0, -17px -17px 34px #f0f0f0;
+  }
+  .content-div .login-form h3 {
+    font-family: "Playfair Display", serif;
+  }
+  .content-div .login-form .form-list {
+    position: relative;
+    /* left: 40px; */
+  }
+  .content-div .login-form p {
+    font-size: 14px;
+    color: #909eb5;
+  }
+  .form-inline label {
+    color: #909eb5;
+    font-size: 18px;
+  }
+  /* .form-inline input,
+  .password-input {
+    height: 40px;
+    border-radius: 10px;
+    font-size: 14px;
+    border: 1px solid rgb(226, 226, 226);
+    background-color: #f9fbff;
+  } */
+  .form-valied{
+    margin-left: 130px;
+    margin-right: auto;
+  }
+  @media (max-width: 430px) {
+    .content-div {
       display: flex;
-      align-items: center;
-      justify-content: center;
+      flex-direction: column;
+    }
+    .form-valied{
+>>>>>>> 7cf9d35... commit
+      display: flex;
+      flex-direction: column;
+    }
+    .image-div{
+      display: none !important;
+    }
+    .content-div{
+      margin-top: 80px !important;
     }
   }
+<<<<<<< HEAD
 >>>>>>> 5b17e7f... added
+||||||| parent of 7cf9d35... commit
+=======
+  @media (max-width: 768px) {
+      /* .form-div {
+        display: flex;
+        flex-direction: column;
+      } */
+      .form-valied{
+      margin-left: auto;
+      margin-right: auto;
+    }           
+      .content-div{
+        margin-top: 30px;
+      }
+      .image-div{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  @media(min-width:768px){
+      .login-form{
+          padding: 30px;
+      }
+  } 
+>>>>>>> 7cf9d35... commit

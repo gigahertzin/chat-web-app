@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import './App.css';
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-import Register from './components/Register/Login/Login'
+import Register from './components/Register/Register'
 
 class App extends Component {
   render() {

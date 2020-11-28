@@ -6,8 +6,8 @@ import Login from "./Login/Login"
 import "./Register.css"
 const Register = () => {
     return(
-        <div className="container-fluid login-sec ">
-            <div className="d-flex content-div align-items-center justify-content-center">
+        <div className="container-fluid login-sec mt-5">
+            <div className="d-flex content-div px-3 align-items-center justify-content-center m-0">
             <Switch>
                 <Route path="/login" render={
                     () => <Login />
