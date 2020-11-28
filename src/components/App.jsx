@@ -12,6 +12,7 @@ import Main from "./Main/Main";
 import NotFoundPage from "./NotFoundPage/NotFoundPage";
 
 const App = () => {
+
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
   let [loggedIn, setLoggedIn] = useState(false);
@@ -45,16 +46,19 @@ const App = () => {
       },
     });
     if (res.status === 200) {
+
       setLoggedIn(true);
       let userDetails = await res.json();
       setUsers(userDetails.users.filter((user) => user.email !== email));
       setCurrentUser(userDetails.users.find((user) => user.email === email));
       history.push("/");
+      
     } else if (res.status === 404) alert("user not found");
     else if (res.status === 401) alert("Incorrect password");
     else alert("Error in creating user");
   };
   const logoutUser = () => setLoggedIn(false)
+
   return (
     <Switch>
       <Route exact path="/">
@@ -74,7 +78,7 @@ const App = () => {
       </Route>
       <Route path={`/:chatId`}>
         {loggedIn ? (
-          <Main currentUser={currentUser} users={users} />
+          <Main currentUser={currentUser} logoutUser={logoutUser} users={users} />
         ) : (
           <Redirect exact to="/getting-started" />
         )}

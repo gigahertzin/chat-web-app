@@ -51,9 +51,11 @@ const Chat = (props) => {
   useEffect(() => {
     setUsers(props.users);
   }, [props.users]);
+  
   useEffect(() => {
     getMessages(user);
   }, [user]);
+
   return (
     <div className="col-md-3 p-0 chat-content-box px-2">
       <div className="profile-card d-flex flex-column align-items-center justify-content-center p-2 w-100 h-auto">

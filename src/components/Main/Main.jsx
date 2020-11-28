@@ -9,6 +9,7 @@ const ENDPOINT = "http://localhost:2000";
 const socket = io(ENDPOINT);
 
 const Main = (props) => {
+
   const { email } = props.currentUser;
   const [receiver, setReceiver] = useState({})
   let [message, setMessage] = useState("");
@@ -16,12 +17,14 @@ const Main = (props) => {
   let [usersOnline, setUsersOnline] = useState([]);
   let [currMsgScreen, setCurrMsgScreen] = useState(""); 
   let { path } = useRouteMatch();
+
   useEffect(() => {
     socket.emit("new", { email }, (data) => {
       if (data) console.log("joined");
       else console.log("failed");
     });
   }, [email]);
+
   useEffect(() => {
     const changeMsg = (data) => {
       console.log(data.msgDetail.sender , currMsgScreen)
@@ -85,17 +88,14 @@ const Main = (props) => {
 
   const saveMessage = (e) => setMessage(e.target.value);
 
-  const chatClick = user => {
-    setCurrMsgScreen(user.email);
-    console.log(user)
-  }
+  const chatClick = user => setCurrMsgScreen(user.email);
 
   const logout = () => {
-    props.logoutUser()
     socket.emit("logout", {email}, data => {
       if(data) console.log("logged out!!!")
       else console.log("Error")
     })
+    props.logoutUser()
   }
 
   return (
@@ -103,7 +103,6 @@ const Main = (props) => {
       <Chat
         chatClick = {chatClick}
         logout = {logout}
-        // logoutUser = {props.logoutUser}
         currentUser={props.currentUser}
         users={props.users}
         usersOnline={usersOnline}
