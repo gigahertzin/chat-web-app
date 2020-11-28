@@ -1,0 +1,25 @@
+.main-div {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.online-members::-webkit-scrollbar {
+  display: none;
+}
+.chat-background *::-webkit-scrollbar,
+.contact-people::-webkit-scrollbar {
+  width: 4px !important;
+  border-radius: 13px !important;
+  border: 2px solid transparent !important;
+}
+
+.chat-background *::-webkit-scrollbar-track,
+.contact-people::-webkit-scrollbar-track {
+  background-color: transparent !important;
+}
+
+.chat-background *::-webkit-scrollbar-thumb,
+.contact-people::-webkit-scrollbar-thumb {
+  background-color: thistle !important;
+  border-radius: 13px !important;
+}

@@ -1,0 +1,46 @@
+.profile-card {
+  background-color: #f5f8fc;
+  border: 1px solid #c5d6fc;
+  border-radius: 10px;
+}
+.profile-card .profile-image,
+.chats-iamge {
+  border-radius: 50%;
+}
+.profile-card h4,
+.online-header h6 {
+  font-weight: 600;
+}
+.online-status span {
+  margin-top: -30px;
+}
+.online-members {
+  overflow-x: scroll;
+}
+.contact-people {
+  height: 220px;
+  overflow-y: scroll;
+}
+.user-chat {
+  border-bottom: 1px solid rgb(230, 230, 230);
+}
+.icon-container img,
+.user-chat img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+.status-circle {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: rgb(250, 12, 12);
+  border: 2px solid white;
+  bottom: 0;
+}
+.chat-detail p {
+  font-size: 12px;
+}
+.active .user-chat {
+  background-color: wheat;
+}

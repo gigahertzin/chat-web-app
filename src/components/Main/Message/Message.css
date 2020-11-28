@@ -1,0 +1,83 @@
+.chat-background {
+  background: url("https://mir-s3-cdn-cf.behance.net/project_modules/disp/2d9dd173426833.5c08f5634ff45.png")
+    fixed center;
+}
+.messages {
+  overflow-y: scroll;
+  height: calc(100% - 66px);
+}
+.msg {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 10px;
+}
+.msg-img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  background: #ddd url("https://image.flaticon.com/icons/svg/145/145867.svg")
+    no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+}
+.msg-box {
+  max-width: 450px;
+  padding: 15px;
+  border-radius: 15px;
+  background: #ddd;
+}
+.msg-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.msg-info-name {
+  margin-right: 10px;
+  font-weight: bold;
+}
+.msg-info-time {
+  font-size: 0.85em;
+}
+.right-msg {
+  flex-direction: row-reverse;
+  color: white;
+}
+.right-msg .msg-img {
+  margin: 0 0 0 10px;
+}
+.right-msg .msg-box {
+  background: #579ffb;
+}
+.chat-inputBox {
+  position: absolute;
+  bottom: 0;
+  border-radius: 10px;
+}
+.msger-inputarea {
+  border-top: 2px solid #ddd;
+  background: #eee;
+  border-radius: 10px;
+}
+.msger-inputarea * {
+  border: none;
+  font-size: 1em;
+}
+.msger-input {
+  flex: 1;
+  background: #ddd;
+  outline-width: 0px;
+  border-radius: 10px;
+}
+.msger-send-btn {
+  border-radius: 10px;
+  width: 100px;
+  margin-left: 10px;
+  background: #004dfc;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.23s;
+}
+.msger-send-btn:hover {
+  background: #004dfc;
+}
